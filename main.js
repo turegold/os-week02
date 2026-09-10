@@ -26,6 +26,7 @@
 // So: collect lines in the "line" handler, do the work in the "close" handler.
 
 import readline from "node:readline";
+import Inko from "inko";
 
 // TODO: import Inko from "inko" and create an instance
 
@@ -53,4 +54,20 @@ rl.on("close", () => {
   //   1. 오픈 소스
   //   2. 깃허브 노드
   // Use ko2en instead of en2ko when reverse is true.
+
+  const inko = new Inko();
+
+  lines
+    .filter((line)=> line != '')
+    .map((line)=> {
+      if(reverse){
+        return inko.ko2en(line);
+      }
+      else{
+        return inko.en2ko(line);
+      }
+    })
+    .forEach((line, i)=>{
+      console.log(`${i+1}. ${line}`);
+    })
 });
